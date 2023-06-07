@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Logo from '../assts/logo.png'
+import Logo from '../assets/logo.png'
 
 const Contacts = ({contacts,currentUser}) => {
     
@@ -8,13 +8,62 @@ const Contacts = ({contacts,currentUser}) => {
     const [currentUserImage,setCurrentUserImage] =useState(undefined);
     const [currentSelected,setCurrentSelected] = useState()
     
-
-  return (
-    <div>
-      
-    </div>
-  )
+useEffect(()=>{
+if(currentUser )
+{
+  setCurrentUserImage(currentUser.avatarImage);
+  setCurrentUserName(currentUser.username);
 }
+},[currentUser]);
+
+const changeCurrentChat = (index,contact)=>{
+  setCurrentSelected(index);
+changeCurrentChat(contact);
+};
+
+return(  
+<>
+  {
+    currentUserImage  && currentUserName && (
+      <Container>
+        <div className="brand">
+          <img src={Logo} alt ="logo" />
+          <h3>Hellow!</h3>
+        </div>
+        <div className="contacts">
+
+          {contacts.map((item,index)=>{
+return(
+  <div className ={`contact ${index===currentSelected ? "selected":""}`}
+  key = {index}
+  
+  onClick={()=>changeCurrentChat(index,item)}>
+    <div className="avatar">
+    <img src={`data:image/svg+xml;base64,${item.avatarImage}`} alt=""/>
+    </div>
+    <div className="username">
+                    <h3>{item.username}</h3>
+                  </div>
+  </div>
+)
+          })}
+        </div>
+        <div className="current-user">
+        <div className="avatar">
+    <img src={`data:image/svg+xml;base64,${currentUserImage}`} alt=""/>
+    </div>
+    <div className="username">
+                    <h3>{currentUserName}</h3>
+                  </div>
+          
+        </div>
+
+      </Container>
+    )
+  }
+   </>
+)
+  }
 
 export default Contacts
 const Container = styled.div`
