@@ -1,8 +1,9 @@
+
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Logo from '../assets/logo.png'
 
-const Contacts = ({contacts,currentUser}) => {
+const Contacts = ({contacts,currentUser,changeChat}) => {
     
     const[currentUserName,setCurrentUserName] = useState(undefined);
     const [currentUserImage,setCurrentUserImage] =useState(undefined);
@@ -18,7 +19,8 @@ if(currentUser )
 
 const changeCurrentChat = (index,contact)=>{
   setCurrentSelected(index);
-changeCurrentChat(contact);
+  changeChat(contact);
+
 };
 
 return(  
@@ -31,8 +33,7 @@ return(
           <h3>Hellow!</h3>
         </div>
         <div className="contacts">
-
-          {contacts.map((item,index)=>{
+        {contacts.map((item,index)=>{
 return(
   <div className ={`contact ${index===currentSelected ? "selected":""}`}
   key = {index}
@@ -47,6 +48,7 @@ return(
   </div>
 )
           })}
+          
         </div>
         <div className="current-user">
         <div className="avatar">
@@ -64,9 +66,9 @@ return(
    </>
 )
   }
+  
 
-export default Contacts
-const Container = styled.div`
+  const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
@@ -151,3 +153,7 @@ const Container = styled.div`
     }
   }
 `;
+
+export default Contacts;
+
+  
